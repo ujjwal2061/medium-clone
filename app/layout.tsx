@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono ,Inter} from "next/font/google";
 import "./globals.css";
+import { NavbarView } from "@/modules/auth/Navbar/Navbar-view";
  
 
 const inter =Inter({
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
+      <NavbarView />
         {children}
       </body>
     </html>

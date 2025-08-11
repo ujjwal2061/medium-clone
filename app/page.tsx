@@ -1,9 +1,6 @@
-
-
+import { Page } from "./Postpage/page"
 export default function Home() {
-  return (
-    <div className="">
-      hello
-    </div>
-  );
+  return<Page />
+      
+       
 }
