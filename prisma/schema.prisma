@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// user model
+model User{
+  id Int@default(autoincrement()) @id
+  email String
+  username String @unique
+  password String
+  posts Post[]  //  post of user
+  bookmarks Bookmarks[] // bookmarks of user
+}
+// post model
+model Post{
+  id Int @default(autoincrement()) @id
+  title String
+  content String
+  image String
+  authorId Int
+  author User @relation(fields: [authorId],references: [id]) // author of post ?
+  bookmarks Bookmarks[]  // how many user  bookmarks this post ?
+}
+// bookmarks model 
+model Bookmarks{
+  id Int @default(autoincrement()) @id
+  userId Int
+  postId Int
+  authorbookmark User @relation(fields: [userId],references: [id]) // how bookmarks it ?
+  postauthor Post @relation(fields: [postId],references: [id]) // which post bookmark it ?
+
+}
