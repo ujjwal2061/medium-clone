@@ -21,7 +21,7 @@ const SignupScheam=z.object({
     message:"Password don't match",
     path:["confirmPassword"]
 })
-    const [error,setError]=useState<string | null>(null)
+  
      const [loading ,setIsLoading]=useState<boolean>(false)
 // form
 const form=useForm<z.infer<typeof SignupScheam>>({
@@ -85,12 +85,7 @@ const form=useForm<z.infer<typeof SignupScheam>>({
                     </FormItem>
                  )} />
                 </div>
-                {!!error && (
-                    <Alert variant="destructive" >
-                       <OctagonAlertIcon className="h-4 w-4 text-destructive" />
-                      <AlertTitle>{error}</AlertTitle>
-                    </Alert>
-                ) }
+              
                 <Button 
                 disabled={loading}
                 className=" w-full cursor-pointer"

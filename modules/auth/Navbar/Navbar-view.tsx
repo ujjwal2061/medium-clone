@@ -20,7 +20,7 @@ export const NavbarView = () => {
           </Button>
           <Button className="cursor-pointer flex items-center gap-1">
             <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
-            Star on
+          <a href="https://github.com/ujjwal2061/turly" target="_blank" >Star on</a> 
             <Github className="w-4 h-4 ml-1" />
           </Button>
         </div>
@@ -39,7 +39,7 @@ export const NavbarView = () => {
             </Button>
             <Button className="cursor-pointer flex items-center justify-center gap-1 w-full">
               <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
-              Star on
+               <a href="https://github.com/ujjwal2061/turly" target="_blank" >Star on</a> 
               <Github className="w-4 h-4 ml-1" />
             </Button>
           </div>
