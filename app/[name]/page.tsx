@@ -1,4 +1,4 @@
- import  Profile from "@/modules/auth/UI/views/user-profile-view/profile-view"
+ import  Profile from "@/modules/UI/user-profile-view/profile-view"
 
  export default  async function page(
     {params}:{params:Promise<{name:string}>}) {

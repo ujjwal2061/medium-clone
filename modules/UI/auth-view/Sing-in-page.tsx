@@ -28,7 +28,7 @@ const SignupScheam=z.object({
     path:["confirmPassword"]
 })
 
-// form
+// form  first-state
 const form=useForm<z.infer<typeof SignupScheam>>({
     resolver:zodResolver(SignupScheam),
     defaultValues:{
@@ -53,7 +53,6 @@ if(res.status==200 || res.status==201){
 }
   }catch(err:any){
     if(err.response){
-      console.log(err)
      toast.error(err.response.data.error || "Something went  wrong ")
     }else{
     toast.error("Networking error");

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono ,Inter} from "next/font/google";
 import "./globals.css";
-import { NavbarView } from "@/modules/auth/Navbar/Navbar-view";
+import { NavbarView } from "@/modules/UI/nava-bar-view/Navbar-view";
 import { Toaster } from "@/components/ui/sonner";
  
 
