@@ -10,7 +10,7 @@ export const Page = () => {
           <div className="flex flex-col sm:flex-row">
             <div className="relative w-full sm:w-1/2 h-64 sm:h-auto ">
               <Image
-                src="/image/kw.jpeg"
+                src="/images/kw.jpeg"
                 alt="post page"
                 fill
                 className="object-cover"
@@ -41,7 +41,7 @@ export const Page = () => {
           <div className="flex flex-col sm:flex-row">
             <div className="relative w-full sm:w-1/2 h-64 sm:h-auto ">
               <Image
-                src="/image/kw.jpeg"
+                src="/images/kw.jpeg"
                 alt="post page"
                 fill
                 className="object-cover"
@@ -72,7 +72,7 @@ export const Page = () => {
           <div className="flex flex-col sm:flex-row">
             <div className="relative w-full sm:w-1/2 h-64 sm:h-auto ">
               <Image
-                src="/image/kw.jpeg"
+                src="/images/kw.jpeg"
                 alt="post page"
                 fill
                 className="object-cover"
