@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono ,Inter} from "next/font/google";
 import "./globals.css";
-import { NavbarView } from "@/modules/UI/nava-bar-view/Navbar-view";
 import { Toaster } from "@/components/ui/sonner";
+
  
 
 const inter =Inter({
@@ -20,11 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} antialiased`}
-      >
-      <NavbarView />
+      <body className={`${inter.className} antialiased`} >
+    
         {children}
+    
         <Toaster richColors position="top-right" />
       </body>
     </html>
