@@ -21,7 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-export const LoginPage = () => {
+export const LoginPageView = () => {
   const [loading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 

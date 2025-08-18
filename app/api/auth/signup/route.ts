@@ -1,5 +1,5 @@
 
-import  {hash} from "bcrypt-ts"
+import {hash} from "bcrypt-ts"
 import   {PrismaClient} from "@/lib/generated/prisma/client"
 
 

@@ -1,6 +1,6 @@
-import { SingInView } from "@/modules/UI/auth-view/Sing-in-page";
+import  { SingInView } from "@/modules/UI/auth-view/Sing-view-page";
 
-const Page=async()=>{
+ async function Page(){
     // why we make this asyuc compenets ?
     return <SingInView />
 }

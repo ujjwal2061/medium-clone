@@ -6,12 +6,12 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 export function middleware(request:NextRequest){
 //
  const pathname = request.nextUrl.pathname;
-const token =request.cookies.get("tokken")?.value
+const token =request.cookies.get("token")?.value
 
 if (!token) {
   return NextResponse.redirect(new URL("/auth/login", request.url));
 }
-console.log("Token",token)
+
 // this set where there routes that need to protected 
 // in this case i have onlu routes which is [name] so i make public route for other 
 
@@ -35,5 +35,5 @@ try{
 }
 // routes which  get access only through the middlware
 export const config={
-    matchMediaher:"/:name"
+    matcher:["/profile/:path*"]
 }

@@ -1,6 +1,6 @@
-import { LoginPage } from "@/modules/UI/auth-view/Login-view-page"
+import { LoginPageView } from  "@/modules/UI/auth-view/Login-view-page"
 
-const Login=async()=>{
-  return <LoginPage />
+async function Login(){
+  return <LoginPageView />
 }
 export default Login;

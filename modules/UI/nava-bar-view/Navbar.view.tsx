@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { UserContext } from "@/modules/context/UserContext";
+
 import { Turtle, Github, Star, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useContext, useState } from "react";
@@ -20,7 +20,7 @@ export const NavbarView = ({username}:NavbarViewProps) => {
         <Button asChild
           variant="outline"
           className="font-semibold px-4 py-1.5 rounded-full cursor-pointer w-10 h-10 flex items-center justify-center">
-          <Link href={`/${username}`}>
+          <Link href={`/profile/${username}`}>
           {username.charAt(0).toUpperCase()}
           </Link> 
         </Button>
