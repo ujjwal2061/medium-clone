@@ -9,8 +9,14 @@ interface UserInfo {
   posts: Post[];
 }
 
+interface CurrentUser {
+  id: number;
+  username: string;
+  email: string;
+}
 interface ProfileProps {
   userInfo: UserInfo | null;
+  currentuser:CurrentUser| null;
 }
 
 interface Post {
@@ -39,7 +45,8 @@ interface Post {
 //   },
 // ];
 
-export const Profile: React.FC<ProfileProps> = ({ userInfo}) => {
+export const Profile: React.FC<ProfileProps> = ({ userInfo,currentuser}) => {
+  const iscurrentuserProfile=currentuser?.id==userInfo?.id;
   return (
     <div className="min-h-screen flex justify-center bg-slate-100">
       <div className="max-w-6xl w-full p-2 flex flex-col  gap-4">
@@ -56,7 +63,9 @@ export const Profile: React.FC<ProfileProps> = ({ userInfo}) => {
           <h1 className="text-xl font-bold">Intro</h1>
           <div className="flex flex-col justify-center items-center gap-2 ">
           <span className="text-md font-semibold text-gray-500">Unemployed</span>
-          <Button variant="outline" className="cursor-pointer w-full ">Edit Bio</Button>
+           {iscurrentuserProfile && (
+             <Button variant="outline" className="cursor-pointer w-full ">Edit Bio</Button>
+           )}
           </div>
           <div className=" flex flex-col items-start p-1">
           <span className="font-semibold text-gray-800">{userInfo?.username}</span>

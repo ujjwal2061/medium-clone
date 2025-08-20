@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 import { Turtle, Github, Star, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 interface NavbarViewProps {
   username?: string; 

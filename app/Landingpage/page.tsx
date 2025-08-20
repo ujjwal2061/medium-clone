@@ -1,13 +1,10 @@
 import Image from "next/image";
 import { Bookmark, SquareArrowUpRight } from "lucide-react";
 import { NavbarView } from "@/modules/UI/nava-bar-view/Navbar.view";
-import { PrismaClient } from "@/lib/generated/prisma";
 import { cookies } from 'next/headers'
 import  jwt from "jsonwebtoken";
 import { toast } from "sonner";
-
-
-const prisma=new PrismaClient();
+import {prisma} from "@/lib/prisma"
 
 // -> geting user
 async function getuserToken(token:string){

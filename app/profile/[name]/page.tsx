@@ -1,35 +1,73 @@
 import { Profile } from "@/modules/UI/user-profile-view/profile-view";
-import { PrismaClient } from "@/lib/generated/prisma";
 import  jwt from "jsonwebtoken";
 import { toast } from "sonner";
 import { cookies } from 'next/headers'
+import { notFound } from "next/navigation";
+import {prisma} from "@/lib/prisma"
 
-const prisma=new PrismaClient();
-async function getuserToken(token:string){
-  try{
- const decoded=jwt.verify(token,process.env.JWT_SECRET!) as any;
- const user=await prisma.user.findUnique({
-  where:{id:decoded.id},select:{id:true,username:true,email:true,posts:true}
- })
- return user;
-  }catch(err:any){
-  if (err.response) {
-        toast.error(err.response.data.error || "Something went  wrong ");
-      } else {
-        toast.error("Networking error");
-      }
-  return null;
+
+async function getCurrentloginuser(token: string) {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      select: { id: true, username: true, email: true, posts: true },
+    });
+    return user;
+  } catch (err: any) {
+    if (err.response) {
+      toast.error(err.response.data.error || "Something went  wrong ");
+    } else {
+      toast.error("Networking error");
+    }
+    return null;
   }
 }
-export default  async function Page() {
-
- const cookieStore = await cookies()
-const token =cookieStore.get("token")?.value
-let user=null;
-if(token){
-  user=await getuserToken(token);
+async function getProfileUser(name: string) {
+  try {
+    const profileUser = await prisma.user.findUnique({
+      where: { username: name },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        posts: true,
+      },
+    });
+    return profileUser;
+  } catch (error: any) {
+    if (error.response) {
+      toast.error(error.response.data.error || "Something went  wrong ");
+    } else {
+      toast.error("Networking error");
+    }
+    return null;
+  }
 }
+interface PageProps {
+  params: {
+    name: string;
+  };
+}
+export async function generateMetadata({params}:PageProps) {
+  return{
+    title:`${params.name}  | truly`,
+    description: `Profile page of ${params.name}.`,
+  }
+  
+}
+export default async function Page({ params }: PageProps) {
+  const { name } = params;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  let currentloginuser = null;
+  if (token) {
+    currentloginuser = await getCurrentloginuser(token);
+  }
+  const profileUser = await getProfileUser(name);
+  if (!profileUser) {
+    notFound();
+  }
 
-
-  return <Profile  userInfo={user}/>;
+  return <Profile userInfo={profileUser} currentuser={currentloginuser} />;
 }
