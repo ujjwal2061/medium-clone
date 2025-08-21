@@ -5,8 +5,8 @@ import { cookies } from 'next/headers'
 import  jwt from "jsonwebtoken";
 import { toast } from "sonner";
 import {prisma} from "@/lib/prisma"
-import {auth} from "@/app/auth"
-import { redirect } from "next/navigation";
+
+
 
 
 // -> geting user
@@ -30,23 +30,13 @@ export   async function Page() {
  const cookieStore = await cookies()
 const token =cookieStore.get("token")?.value
   let user = null;
-  const session=await auth();
-  if (session?.user?.email) {
-    user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      select: { id: true,name:true, username: true, email: true },
-    });
-   
- 
-  }
-
 if(token){
   user=await getuserToken(token);
 }
 
   return (
     <div className="min-h-screen  bg-slate-100">
-      <NavbarView  username={user?.username ?? session?.user?.name?.split(" ")[0]}/>
+      <NavbarView  username={user?.username}/>
       <div className="flex justify-center">
         <div className="max-w-5xl w-full justify-center mt-16  p-2 flex flex-col gap-1">
           {/* Post Section */}

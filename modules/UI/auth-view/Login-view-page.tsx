@@ -130,15 +130,11 @@ export const LoginPageView = () => {
                       )}
                     />
                   </div>
-
                   <Button type="submit" disabled={loading} className=" w-full cursor-pointer">
                     Login
                   </Button>
                 </div>
-              </form>
-                  <Button  variant="secondary" className="cursor-pointer w-full" onClick={()=>signIn("google",{callbackUrl:"/"})}>
-                      <FcGoogle size={18} />Login with Google
-                  </Button>
+              </form>  
               <div className="text-center text-sm">
                 Did't have an account ?{" "}
                 <Link

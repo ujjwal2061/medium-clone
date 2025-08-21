@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
-import {auth} from "./auth"
+
 
 
 const JWT_SECRET = process.env.JWT_SECRET!; 
@@ -25,12 +25,7 @@ try{
   return NextResponse.next();
 }
 
-export default auth(async(request)=>{
-  if(request.auth){
-    return NextResponse.next();
-  }
-return customMiddleware(request);
-})
+
 // routes which  get access only through the middlware
 export const config={
     matcher:["/profile/:path*"]

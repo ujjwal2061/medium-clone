@@ -155,9 +155,6 @@ export const SingInView = () => {
                   </Button>
                 </div>
               </form>
-                <Button  variant="secondary" className="cursor-pointer w-full" onClick={()=>signIn("google",{callbackUrl:"/"})}>
-                <FcGoogle size={18} />Continue with Google
-                </Button>
               <div className="text-center text-sm">
                 Already have an account ?{" "}
                 <Link

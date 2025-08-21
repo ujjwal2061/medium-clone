@@ -59,7 +59,6 @@ export async function POST(req:Request){
           id: user.id,
           email: user.email,
           username: user.username, // already slugified at signup
-          image: user.image || null,
         },
       }),
       {

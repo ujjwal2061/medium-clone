@@ -11,25 +11,12 @@ interface NavbarViewProps {
   name?:string|null;
   image?:string|null;
 }
-export const NavbarView = ({username,image,name}:NavbarViewProps) => {
+export const NavbarView = ({username}:NavbarViewProps) => {
     
   const [isExpanded, setIsExpanded] = useState(false);
 
-
+ console.log(name)
   const renderUserButton = () => { 
-       if (image) {
-      return (
-        <Link href={`/profile/${name}`}>
-          <Image
-            src={image}
-            alt={name ?? "User"}
-            width={40}
-            height={40}
-            className="rounded-full border border-gray-300"
-          />
-        </Link>
-      );
-    }
        if (username) {
       return (
         <Button asChild
@@ -78,6 +65,7 @@ export const NavbarView = ({username,image,name}:NavbarViewProps) => {
       {isExpanded && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t shadow-lg z-50">
           <div className="flex flex-col gap-3 p-4">
+            {renderUserButton()}
             <Button className="cursor-pointer flex items-center justify-center gap-1 w-full">
               <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
               <a

@@ -13,63 +13,31 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-// user model
-model User{
-  id Int@default(autoincrement()) @id
-  email String @unique
-  name     String?
-  username String? @unique
-  password String?
-  image     String? 
-  emailVerified DateTime? 
-  posts Post[]  //  post of user
-  bookmarks Bookmarks[] // bookmarks of user
-  accounts  Account[]
-  sessions  Session[]
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  username  String     @unique
+  password  String
+  posts     Post[]
+  bookmarks Bookmarks[]
 }
-// post model
-model Post{
-  id Int @default(autoincrement()) @id
-  title String
-  content String
-  image String
-  authorId Int
-  author User @relation(fields: [authorId],references: [id]) // author of post ?
-  bookmarks Bookmarks[]  // how many user  bookmarks this post ?
-}
-// bookmarks model 
-model Bookmarks{
-  id Int @default(autoincrement()) @id
-  userId Int
-  postId Int
-  authorbookmark User @relation(fields: [userId],references: [id]) // how bookmarks it ?
-  postauthor Post @relation(fields: [postId],references: [id]) // which post bookmark it ?
 
+// Post model
+model Post {
+  id        Int        @id @default(autoincrement())
+  title     String
+  content   String
+  image     String
+  authorId  Int
+  author    User       @relation(fields: [authorId], references: [id])
+  bookmarks Bookmarks[]
 }
-model Account{
-   id                 String  @id @default(cuid())
-  userId             Int
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-   @@unique([provider, providerAccountId])
-  @@map("accounts")
-}
-model Session{
-    id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId        Int
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@map("sessions")
+// Bookmarks model
+model Bookmarks {
+  id           Int   @id @default(autoincrement())
+  userId       Int
+  postId       Int
+  authorbookmark User  @relation(fields: [userId], references: [id])
+  postauthor     Post  @relation(fields: [postId], references: [id])
 }

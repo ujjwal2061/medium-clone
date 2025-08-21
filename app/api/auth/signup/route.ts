@@ -17,7 +17,7 @@ export async function POST(req:Request) {
     try{
         const body =await req.json();
         const {username ,email,password}:Signup=body;
-        if(!email || !username || !password){
+        if(!email || !password || !username){
             return new Response(JSON.stringify({error:"Email &&  Username required"}))
         }
         // checking user existing or not
@@ -29,11 +29,12 @@ export async function POST(req:Request) {
                 status:409,headers:{"Content-Type":"application/json"}
             })
         }
+        
         const hashpassword= await hash(password ,10);
         // this for the request part
          await prisma.user.create({
             data:{
-                username,
+                username:username,
                 email,
                 password:hashpassword,
             }
@@ -43,6 +44,7 @@ export async function POST(req:Request) {
             { message: "User created successfully" }),
             { status: 201,headers: { "Content-Type": "application/json" },});
     }catch(error){
+        console.log(error)
         return  new Response (JSON.stringify({message:"Interal sever error"}),{
             status:500,
             headers:{ "Content-Type": "application/json" }

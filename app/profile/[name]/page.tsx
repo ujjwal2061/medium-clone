@@ -1,20 +1,20 @@
-import { Profile } from "@/modules/UI/user-profile-view/profile-view";
+ import { Profile } from "@/modules/UI/user-profile-view/profile-view";
 import  jwt from "jsonwebtoken";
 import { toast } from "sonner";
 import { cookies } from 'next/headers'
 import { notFound } from "next/navigation";
 import {prisma} from "@/lib/prisma"
-import { useSession } from "next-auth/react";
-import {auth} from "@/app/auth"
+
+
 
 async function getCurrentloginuser(token: string) {
-  const session=await auth();
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
-    const user =  session?.user ?await prisma.user.findUnique({
+    const user =await prisma.user.findUnique({
       where: { id: decoded.id },
       select: { id: true, username: true, email: true, posts: true },
-    }):null;
+    })
     return user;
 
   } catch (err: any) {
@@ -29,7 +29,7 @@ async function getCurrentloginuser(token: string) {
 async function getProfileUser(name: string) {
   try {
     const profileUser = await prisma.user.findUnique({
-      where: { username: name },
+      where: {username:name},
       select: {
         id: true,
         username: true,

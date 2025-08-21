@@ -1,10 +1,15 @@
-import { auth } from "@/app/auth";
+
 import  { SingInView } from "@/modules/UI/auth-view/Sing-view-page";
 import { redirect } from "next/navigation";
+import { cookies } from 'next/headers';
 
  async function Page(){
-    const session=await auth()
-    if(session) redirect("/");
+const cookieStore = await  cookies();
+const token =cookieStore.get("token")?.value;
+
+ if(token){
+     redirect("/")
+ }
     return <SingInView />
 }
 export default Page;
