@@ -15,7 +15,7 @@ export const NavbarView = ({username}:NavbarViewProps) => {
     
   const [isExpanded, setIsExpanded] = useState(false);
 
- console.log(name)
+
   const renderUserButton = () => { 
        if (username) {
       return (
