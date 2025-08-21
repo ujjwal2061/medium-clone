@@ -4,16 +4,19 @@ import { toast } from "sonner";
 import { cookies } from 'next/headers'
 import { notFound } from "next/navigation";
 import {prisma} from "@/lib/prisma"
-
+import { useSession } from "next-auth/react";
+import {auth} from "@/app/auth"
 
 async function getCurrentloginuser(token: string) {
+  const session=await auth();
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
-    const user = await prisma.user.findUnique({
+    const user =  session?.user ?await prisma.user.findUnique({
       where: { id: decoded.id },
       select: { id: true, username: true, email: true, posts: true },
-    });
+    }):null;
     return user;
+
   } catch (err: any) {
     if (err.response) {
       toast.error(err.response.data.error || "Something went  wrong ");
@@ -50,9 +53,10 @@ interface PageProps {
   };
 }
 export async function generateMetadata({params}:PageProps) {
+  const userprams=await params;
   return{
-    title:`${params.name}  | truly`,
-    description: `Profile page of ${params.name}.`,
+    title:`${userprams.name}  | truly`,
+    description: `Profile page of ${userprams.name}.`,
   }
   
 }

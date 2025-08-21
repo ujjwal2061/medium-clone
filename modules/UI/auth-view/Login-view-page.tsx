@@ -20,7 +20,8 @@ import * as z from "zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
+import {signIn} from "next-auth/react"
+import { FcGoogle } from "react-icons/fc" 
 export const LoginPageView = () => {
   const [loading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -135,6 +136,9 @@ export const LoginPageView = () => {
                   </Button>
                 </div>
               </form>
+                  <Button  variant="secondary" className="cursor-pointer w-full" onClick={()=>signIn("google",{callbackUrl:"/"})}>
+                      <FcGoogle size={18} />Login with Google
+                  </Button>
               <div className="text-center text-sm">
                 Did't have an account ?{" "}
                 <Link

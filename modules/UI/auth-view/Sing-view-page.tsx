@@ -19,8 +19,12 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 import * as z from "zod";
+import {signIn} from "next-auth/react"
+import { FcGoogle } from "react-icons/fc"
 
 export const SingInView = () => {
+
+  
   const [loading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
@@ -151,6 +155,9 @@ export const SingInView = () => {
                   </Button>
                 </div>
               </form>
+                <Button  variant="secondary" className="cursor-pointer w-full" onClick={()=>signIn("google",{callbackUrl:"/"})}>
+                <FcGoogle size={18} />Continue with Google
+                </Button>
               <div className="text-center text-sm">
                 Already have an account ?{" "}
                 <Link

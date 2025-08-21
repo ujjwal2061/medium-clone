@@ -1,21 +1,36 @@
 "use client";
 import { Button } from "@/components/ui/button";
 
+import Image from "next/image";
 import { Turtle, Github, Star, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 interface NavbarViewProps {
-  username?: string; 
+  username?: string|null; 
+  name?:string|null;
+  image?:string|null;
 }
-export const NavbarView = ({username}:NavbarViewProps) => {
-  
+export const NavbarView = ({username,image,name}:NavbarViewProps) => {
+    
   const [isExpanded, setIsExpanded] = useState(false);
 
 
-  const renderUserButton = () => {
-
-    if (username) {
+  const renderUserButton = () => { 
+       if (image) {
+      return (
+        <Link href={`/profile/${name}`}>
+          <Image
+            src={image}
+            alt={name ?? "User"}
+            width={40}
+            height={40}
+            className="rounded-full border border-gray-300"
+          />
+        </Link>
+      );
+    }
+       if (username) {
       return (
         <Button asChild
           variant="outline"

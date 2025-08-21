@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 
 interface UserInfo {
   id: number;
-  username: string;
+  username: string | null;
   email: string;
   posts: Post[];
 }
 
 interface CurrentUser {
   id: number;
-  username: string;
+  username: string |null;
   email: string;
 }
 interface ProfileProps {
@@ -26,25 +26,6 @@ interface Post {
   image: string;
   authorId: number;
 }
-// const blogs: Post[] = [
-//   {
-//     date: "25 May",
-//     icon: "User2",
-//     description:
-//       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus deserunt, iste incidunt, culpa dignissimos facere nobis necessitatibus cupiditate sequi commodi in rerum? Reprehenderit at quasi tenetur.",
-//     imageUrl: "/images/kw.jpeg",
-//       authorId:12
-//   },
-//   {
-//     date: "10 June",
-//     icon: "User2",
-//     description:
-//       "Aliquam ullam molestiae molestias, deleniti cumque pariatur impedit blanditiis provident architecto, fugit sint quaerat animi quisquam minus.",
-//     imageUrl: "/images/kw.jpeg",
-//      authorId:12
-//   },
-// ];
-
 export const Profile: React.FC<ProfileProps> = ({ userInfo,currentuser}) => {
   const iscurrentuserProfile=currentuser?.id==userInfo?.id;
   return (

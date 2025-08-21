@@ -5,12 +5,15 @@ import { cookies } from 'next/headers'
 import  jwt from "jsonwebtoken";
 import { toast } from "sonner";
 import {prisma} from "@/lib/prisma"
+import {auth} from "@/app/auth"
+import { redirect } from "next/navigation";
+
 
 // -> geting user
 async function getuserToken(token:string){
   try{
  const decoded=jwt.verify(token,process.env.JWT_SECRET!) as any;
- const user=await prisma.user.findUnique({
+ const user= await prisma.user.findUnique({
   where:{id:decoded.id},select:{id:true,username:true,email:true}
  })
  return user;
@@ -26,14 +29,24 @@ async function getuserToken(token:string){
 export   async function Page() {
  const cookieStore = await cookies()
 const token =cookieStore.get("token")?.value
-let user=null;
+  let user = null;
+  const session=await auth();
+  if (session?.user?.email) {
+    user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { id: true,name:true, username: true, email: true },
+    });
+   
+ 
+  }
+
 if(token){
   user=await getuserToken(token);
 }
 
   return (
     <div className="min-h-screen  bg-slate-100">
-      <NavbarView  username={user?.username}/>
+      <NavbarView  username={user?.username ?? session?.user?.name?.split(" ")[0]}/>
       <div className="flex justify-center">
         <div className="max-w-5xl w-full justify-center mt-16  p-2 flex flex-col gap-1">
           {/* Post Section */}

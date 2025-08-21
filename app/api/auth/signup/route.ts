@@ -1,10 +1,8 @@
 
 import {hash} from "bcrypt-ts"
-import   {PrismaClient} from "@/lib/generated/prisma/client"
+import { prisma } from "@/lib/prisma";
 
 
-
-const prisma_client=new PrismaClient();
 
 interface Signup{
     username?:string,
@@ -12,6 +10,7 @@ interface Signup{
     password?:string
 };
 // get rquest
+// utility function
 
 
 export async function POST(req:Request) {
@@ -22,7 +21,7 @@ export async function POST(req:Request) {
             return new Response(JSON.stringify({error:"Email &&  Username required"}))
         }
         // checking user existing or not
-        const isUserexits=await prisma_client.user.findUnique({
+        const isUserexits=await prisma.user.findUnique({
             where:{email},
         });
         if(isUserexits){
@@ -32,7 +31,7 @@ export async function POST(req:Request) {
         }
         const hashpassword= await hash(password ,10);
         // this for the request part
-         await prisma_client.user.create({
+         await prisma.user.create({
             data:{
                 username,
                 email,
@@ -44,7 +43,6 @@ export async function POST(req:Request) {
             { message: "User created successfully" }),
             { status: 201,headers: { "Content-Type": "application/json" },});
     }catch(error){
-        console.log(error)
         return  new Response (JSON.stringify({message:"Interal sever error"}),{
             status:500,
             headers:{ "Content-Type": "application/json" }
