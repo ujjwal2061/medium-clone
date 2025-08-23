@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { PlusCircle } from "lucide-react";
 
-import Image from "next/image";
 import { Turtle, Github, Star, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,15 +19,22 @@ export const NavbarView = ({username}:NavbarViewProps) => {
   const renderUserButton = () => { 
        if (username) {
       return (
+        <div className="flex  gap-2 items-center">
         <Button asChild
           variant="outline"
-          className="font-semibold px-4 py-1.5 rounded-full cursor-pointer w-10 h-10 flex items-center justify-center">
+          className="hidden  md:flex font-semibold px-4 py-1.5 rounded-full cursor-pointer w-10 h-10  items-center justify-center">
           <Link href={`/profile/${username}`}>
           {username.charAt(0).toUpperCase()}
           </Link> 
         </Button>
+        <Button>
+          <Link href="/create" className="flex gap-1 items-center"><PlusCircle  size={18}/>New Post</Link>
+        </Button>
+      </div>
+
       );
     }
+
     return (
       <Button asChild variant="outline" className="font-semibold px-6 py-1.5">
         <Link href="/auth/login">Start</Link>

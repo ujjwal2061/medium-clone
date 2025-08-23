@@ -1,5 +1,5 @@
 
-import { Bookmark, SquareArrowUpRight } from "lucide-react";
+
 import { NavbarView } from "@/modules/UI/nava-bar-view/Navbar.view";
 import { cookies } from 'next/headers'
 import  jwt from "jsonwebtoken";
@@ -29,38 +29,12 @@ const token =cookieStore.get("token")?.value
 if(token){
   user=await getuserToken(token);
 }
-const samplePosts:Post[] = [
-  {
-    id: "1",
-    title: "The Learning Process: How to Learn Effectively",
-    content: "Learning is a journey, not just a destination. Whether you’re studying a new programming language, mastering a musical instrument, or exploring a new skill, understanding how learning works can make the process easier and more enjoyable. Here’s a simple guide to help you learn effectively.",
-    createdAt: new Date().toISOString(),
-    author: { name: user?.username || "Anonymous", image: null },
-  },
-  {
-    id: "2",
-    title: "Tips for Staying Motivated While Learning",
-    content: "Motivation is the key to consistent progress. Set small achievable goals, track your improvements, and reward yourself along the way. Connecting learning with your passions can also make the process more enjoyable and help you stay committed.",
-    createdAt: new Date().toISOString(),
-    author: { name: "Jane Doe", image: null },
-  },
-  {
-    id: "3",
-    title: "How to Retain Knowledge Longer",
-    content: "Retention is as important as learning itself. Use techniques like spaced repetition, active recall, and teaching others. Regularly revisiting what you’ve learned will strengthen your memory and deepen your understanding.",
-    createdAt: new Date().toISOString(),
-    author: { name: "John Smith", image: null },
-  },
-];
-
   return (
     <div className="min-h-screen  bg-slate-100">
       <NavbarView  username={user?.username}/>
       <div className="flex justify-center">
         <div className="max-w-5xl w-full justify-center mt-16  p-2 flex flex-col gap-1">
-        {samplePosts.map((post) => (
-          <PostCard key={post.id} post={post} showFullContent={false} />
-         ))}
+          <PostCard  />
         </div>
       </div>
     </div>

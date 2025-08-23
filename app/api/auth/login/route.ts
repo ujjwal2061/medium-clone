@@ -58,7 +58,7 @@ export async function POST(req:Request){
         user: {
           id: user.id,
           email: user.email,
-          username: user.username, // already slugified at signup
+          username: user.username, 
         },
       }),
       {

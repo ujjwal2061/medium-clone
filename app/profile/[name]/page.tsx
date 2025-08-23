@@ -1,14 +1,13 @@
- import { Profile } from "@/modules/UI/user-profile-view/profile-view";
-import  jwt from "jsonwebtoken";
-import { toast } from "sonner";
+
+
+import { Profile } from "@/modules/UI/user-profile-view/profile-view";
+import jwt from "jsonwebtoken";
 import { cookies } from 'next/headers'
 import { notFound } from "next/navigation";
 import {prisma} from "@/lib/prisma"
 
 
-
 async function getCurrentloginuser(token: string) {
-
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
     const user =await prisma.user.findUnique({
@@ -17,15 +16,11 @@ async function getCurrentloginuser(token: string) {
     })
     return user;
 
-  } catch (err: any) {
-    if (err.response) {
-      toast.error(err.response.data.error || "Something went  wrong ");
-    } else {
-      toast.error("Networking error");
-    }
-    return null;
+  } catch (error) {
+    console.log(error)
   }
 }
+
 async function getProfileUser(name: string) {
   try {
     const profileUser = await prisma.user.findUnique({
@@ -38,28 +33,19 @@ async function getProfileUser(name: string) {
       },
     });
     return profileUser;
-  } catch (error: any) {
-    if (error.response) {
-      toast.error(error.response.data.error || "Something went  wrong ");
-    } else {
-      toast.error("Networking error");
-    }
-    return null;
+  } catch (error) {
+    console.log(error)
   }
 }
+
 interface PageProps {
   params: {
     name: string;
   };
 }
-export async function generateMetadata({params}:PageProps) {
-  const userprams=await params;
-  return{
-    title:`${userprams.name}  | truly`,
-    description: `Profile page of ${userprams.name}.`,
-  }
-  
-}
+
+
+
 export default async function Page({ params }: PageProps) {
   const { name } = params;
   const cookieStore = await cookies();

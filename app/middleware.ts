@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 export function customMiddleware(request:NextRequest){
 //
  const pathname = request.nextUrl.pathname;
- const publicPaths = ["/auth", "/api", "/favicon.ico"];
+ const publicPaths = ["/auth", "/blog/:path*","/api", "/favicon.ico"];
  if (publicPaths.some((path) => pathname.startsWith(path))) {
    return NextResponse.next();
  }
@@ -28,5 +28,5 @@ try{
 
 // routes which  get access only through the middlware
 export const config={
-    matcher:["/profile/:path*"]
+    matcher:["/profile/:path*","/post","/create"]
 }

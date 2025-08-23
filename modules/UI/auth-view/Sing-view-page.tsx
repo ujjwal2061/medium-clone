@@ -19,8 +19,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 import * as z from "zod";
-import {signIn} from "next-auth/react"
-import { FcGoogle } from "react-icons/fc"
+
 
 export const SingInView = () => {
 

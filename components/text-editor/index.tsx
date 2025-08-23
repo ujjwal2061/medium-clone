@@ -5,6 +5,9 @@ import StarterKit from '@tiptap/starter-kit'
 import TextAlign from '@tiptap/extension-text-align';
 import Menubar from './menu-bar'
 import Highlight from '@tiptap/extension-highlight';
+import Image from "@tiptap/extension-image";
+import CodeBlock from '@tiptap/extension-code-block';
+
 
 interface RichTextEdiorProps{
     content:string;
@@ -22,9 +25,17 @@ const Tiptap = ({content,onChange}:RichTextEdiorProps) => {
             class:"list-decimal ml-3"
         }}
     })
-        ,Highlight,
+    ,Highlight,
     TextAlign.configure({
         types: ['heading', 'paragraph'],
+    }),
+    Image.configure({
+        allowBase64:true
+    }),
+    CodeBlock.configure({
+        defaultLanguage:"palintext",
+        languageClassPrefix:"langauage-",
+        exitOnArrowDown:false
     })
     ],
     content: content,
@@ -40,9 +51,10 @@ const Tiptap = ({content,onChange}:RichTextEdiorProps) => {
     
   })
 
+
   return (
     <div>
-   <Menubar editor={editor} />
+   <Menubar editor={editor}  />
    <EditorContent editor={editor} />
     </div>
   )

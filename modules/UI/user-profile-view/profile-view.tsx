@@ -1,6 +1,15 @@
 "use client";
-import { Button } from "@/components/ui/button";
 
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Components } from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ArrowLeft } from "lucide-react";
 
 interface UserInfo {
   id: number;
@@ -11,76 +20,108 @@ interface UserInfo {
 
 interface CurrentUser {
   id: number;
-  username: string |null;
+  username: string | null;
   email: string;
 }
+
 interface ProfileProps {
   userInfo: UserInfo | null;
-  currentuser:CurrentUser| null;
+  currentuser?: CurrentUser | null;
 }
 
 interface Post {
   id: number;
   title: string;
   content: string;
-  image: string;
   authorId: number;
 }
-export const Profile: React.FC<ProfileProps> = ({ userInfo,currentuser}) => {
-  const iscurrentuserProfile=currentuser?.id==userInfo?.id;
-  return (
-    <div className="min-h-screen flex justify-center bg-slate-100">
-      <div className="max-w-6xl w-full p-2 flex flex-col  gap-4">
-        <div className=" relative  flex flex-col  rounded-md max-h-56 ">
-          <div className=" w-full  h-full">
-            <img  src="/images/kw.jpeg"  className="object-cover  rounded-md h-full w-full"/>
-          </div>
-          <div className="absolute  -bottom-11 left-2 rounded-full border-2  border-zinc-500 h-32 w-32 ">
-            <img src="/images/kw.jpeg" className="object-cover rounded-full" />
-          </div>
-        </div>
-        <div className="grid grid-cols-1  sm:grid-cols-1  lg:grid-cols-2 gap-2 py-8 sm:px-2 ">
-         <div className=" bg-zinc-100 shadow-md rounded-md p-2 h-44">
-          <h1 className="text-xl font-bold">Intro</h1>
-          <div className="flex flex-col justify-center items-center gap-2 ">
-          <span className="text-md font-semibold text-gray-500">Unemployed</span>
-           {iscurrentuserProfile && (
-             <Button variant="outline" className="cursor-pointer w-full ">Edit Bio</Button>
-           )}
-          </div>
-          <div className=" flex flex-col items-start p-1">
-          <span className="font-semibold text-gray-800">{userInfo?.username}</span>
-          <p className="font-medium text-gray-500">{userInfo?.email}</p>
-          </div>
-         </div>
-         {/*Blog seection of user */}
-          <div className="px-2 bg-zinc-100 shadow rounded-md">
-          <h1 className=" p-1 font-semibold text-gray-700">Blogs</h1>
-          <div className="rounded-t-md  flex flex-col scrollbar-hide overflow-auto max-h-96">
-          {/* {blogs.map((blog ,i)=>(
-              <div  key={i} className="blog-section rounded-md flex flex-col ">
-           <div className="image-section flex flex-1 items-center bg-neutral-300 mt-1 rounded-t-md gap-1 p-0.5">
-            <div className=" w-8  h-8">
-            <img  src={blog.imageUrl}  className="object-cover  rounded-full h-full w-full"/>
-            </div>
-            <div className="flex flex-col  items-start w-full ">
-                <span className="font-semibold text-md text-gray-600">{userInfo?.username}</span>
-                <p className="text-gray-600 flex gap-1 text-sm  items-center">{blog.date}
-                {blog.icon}
-                </p>
-            </div>
-           </div>
-           <div className="bg-neutral-100 ">
-            <p className="text-start tracking-tight leading-relaxed text-gray-600">{blog.description}</p>
-            <div className="w-full ">
-             <img src={blog.imageUrl}  className="rounded-b-md h-full w-full object-cover"/>
-            </div>
-           </div>
-          </div>
-        ))} */}
-         </div>
 
+export const Profile: React.FC<ProfileProps> = ({ userInfo, currentuser }) => {
+  const components: Components = {
+    code({ className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || "");
+      return match ? (
+        <SyntaxHighlighter
+          // @ts-expect-error style typing is wrong in lib
+          style={oneDark}
+          language={match[1]}
+          PreTag="div"
+          {...props}>
+          {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+      ) : (
+        <code className="bg-gray-200 px-1 rounded" {...props}>
+          {children}
+        </code>
+      );
+    },
+  } as Components;
+
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-100">
+      <nav className=" fixed   w-full bg-white  border-b">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center">
+          <Link
+            href="/"
+            className="flex items-center text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
+            <ArrowLeft size={20} className="mr-2" />
+            Back to Home
+          </Link>
         </div>
+      </nav>
+
+      <div className=" mt-8 max-w-7xl w-full flex flex-col gap-4 md:flex-row mx-auto px-4 py-6">
+        <div className="w-full md:w-1/3 md:border-none">
+          <Card>
+            <CardHeader>
+              <div className="flex flex-row items-center gap-4">
+                <Avatar>
+                  <AvatarImage src="" />
+                  <AvatarFallback>{userInfo?.username?.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-semibold text-lg">{userInfo?.username}</p>
+                  <span className="text-sm text-gray-500">{userInfo?.email}</span>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+        </div>
+
+        {/* Blog Posts Section */}
+        <div className="w-full md:w-2/3 px-2 bg-card text-foreground rounded-xl py-2">
+          <h1 className="p-1 font-semibold text-gray-700 text-2xl">Your Posts</h1>
+          <div className="rounded-t-md flex flex-col scrollbar-hide overflow-auto px-2">
+            {userInfo?.posts.map((blog) => (
+              <Link key={blog.id} href={`/post/${blog.id}`}>
+                <Card className="mb-4">
+                  <CardHeader>
+                    <div className="flex items-center space-x-4"></div>
+                    <div>
+                      <p className="text-sm font-medium">{userInfo.username}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {/* {new Date(post.createdAt).toLocaleDateString()} */}
+                      </p>
+                    </div>
+                    <CardTitle className="text-xl">
+                      <p>{blog.title}</p>
+                    </CardTitle>
+                  </CardHeader>
+                 <CardContent>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                    components={components}
+                  >
+                    {blog.content 
+                      ? blog.content.slice(0, 150) + (blog.content.length > 150 ? "..." : "")
+                      : "no-content"}
+                  </ReactMarkdown>
+                </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>
