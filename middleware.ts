@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 
 const JWT_SECRET = process.env.JWT_SECRET!; 
-export function customMiddleware(request:NextRequest){
+export function middlware(request:NextRequest){
 //
  const pathname = request.nextUrl.pathname;
  const publicPaths = ["/auth", "/blog/:path*","/api", "/favicon.ico"];
