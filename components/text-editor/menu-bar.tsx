@@ -127,9 +127,13 @@ const addImagetoEditor=async(e:React.ChangeEvent<HTMLInputElement>)=>{
           {option.icon}{" "}
         </Toggle>
       ))}
-          <div className="flex  items-center gap-1 ">
+          <div className="flex  items-center gap-2 ">
           <button className={editor.isActive('codeBlock')?'is-active cursor-pointer p-2 rounded hover:bg-slate-100 hover:text-gray-400':""} 
-          onClick={()=>editor.chain().focus().toggleCodeBlock().run()}>
+          onClick={()=>editor.chain().focus().setCodeBlock().run()}>
+            <Code size={16} />
+          </button>
+           <button className={editor.isActive('codeBlock')?'is-active cursor-pointer p-2 rounded hover:bg-slate-100 hover:text-gray-400':""} 
+            onClick={()=>editor.chain().focus().toggleCodeBlock().run()} disabled={editor.isActive('codeBlock')}>
             <Code size={16} />
           </button>
         </div>

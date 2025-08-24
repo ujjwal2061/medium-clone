@@ -11,6 +11,8 @@ import { Bookmark, SquareArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { toast } from "sonner";
+import  PostCardLoading  from "./loading";
 export interface Post {
   id: string;
   title: string;
@@ -24,12 +26,12 @@ export interface Post {
 }
 
 export default function PostCard() {
-  const components: Components = {
+   const components: Components = {
     code({ className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || "");
       return match ? (
         <SyntaxHighlighter
-          // @ts-expect-error style typing is wrong in lib
+          // @ts-expect-error 
           style={oneDark}
           language={match[1]}
           PreTag="div"
@@ -52,9 +54,14 @@ export default function PostCard() {
       try {
         const res = await fetch("/api/allposts");
         const data = await res.json();
+        await new Promise(r=>setTimeout(r,600))
         setPosts(data);
-      } catch (err) {
-        console.error("Failed to load posts:", err);
+      } catch (err:any) {
+       if(err.response){
+        toast.error(err.response.data)
+       }else{
+        toast.error("Someting went wrong !!")
+       }
       } finally {
         setLoading(false);
       }
@@ -62,22 +69,21 @@ export default function PostCard() {
 
     fetchPosts();
   }, []);
-  console.log(posts);
-  if (loading) {
-    return <p className="text-center py-6">Loading posts...</p>;
-  }
+if (loading) {
+  return <PostCardLoading />
+}
+
 
   return (
     <div className="space-y-6 ">
       {posts.map((post) => (
-        <Link href={`/post/${post.id}`}>
+        <Link key={post.id} href={`/post/${post.id}`}>
         <Card key={post.id} className="shadow-md m-2 ">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <div className="flex flex-row items-center gap-2">
+           <div className="flex border-neutral-200  bg-neutral-200 w-fit  p-1.5 rounded-md flex-row items-center gap-2">
                 <Avatar>
                   <AvatarImage src="" />
-                  <AvatarFallback className="bg-neutral-200 shadow rounded-full px-2 py-1">
+                  <AvatarFallback className="bg-zinc-100  shadow rounded-full px-2 py-1">
                     {post?.author?.username?.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
@@ -86,14 +92,13 @@ export default function PostCard() {
                   {/* {new Date(post.createdAt).toLocaleDateString()} */}
                 </p>
               </div>
-            </div>
             <CardTitle className="text-xl mt-2">
               <p>
                 {post.title}
               </p>
             </CardTitle>
           </CardHeader>
-                  <CardContent>
+          <CardContent>
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}

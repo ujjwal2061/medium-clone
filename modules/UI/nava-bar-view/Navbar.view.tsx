@@ -43,14 +43,13 @@ export const NavbarView = ({username}:NavbarViewProps) => {
   };
 
   return (
-    <div className="w-full z-20 bg-neutral-100 flex justify-center fixed ">
+    <div className="w-full  border-b border-neutral-400 z-20 bg-neutral-100 flex justify-center fixed ">
       <div className="  max-w-7xl  mx-auto  w-full ">
       <div className="flex justify-between items-center px-4 py-3">
         <div className="flex gap-2 items-center">
           <Turtle size={25} />
           <h1 className="font-semibold text-base">Turly</h1>
         </div>
-
         <div className="hidden md:flex gap-2 items-center">
           {renderUserButton()}
           <Button className="cursor-pointer flex items-center gap-1">
