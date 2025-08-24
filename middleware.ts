@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
   // Check JWT token in cookies
   const token = request.cookies.get("token")?.value;
   if (!token) {
-    console.log("No token, redirecting to login");
+   
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
