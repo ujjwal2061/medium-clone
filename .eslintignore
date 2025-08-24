@@ -1,0 +1,5 @@
+lib/generated/
+prisma/generated/
+**/*.wasm.js
+.next/
+node_modules/

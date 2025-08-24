@@ -3,10 +3,10 @@
 import { NavbarView } from "@/modules/UI/nava-bar-view/Navbar.view";
 import { cookies } from 'next/headers'
 import  jwt from "jsonwebtoken";
-import { toast } from "sonner";
+
 import {prisma} from "@/lib/prisma"
 import PostCard from "@/components/ui/post-card"
-import {Post} from "@/components/ui/post-card"
+
 
 
 // -> geting user
@@ -22,7 +22,7 @@ async function getuserToken(token:string){
     return null; 
   }
 }
-export   async function Page() {
+export default  async function Page() {
  const cookieStore = await cookies()
 const token =cookieStore.get("token")?.value
   let user = null;
