@@ -39,15 +39,15 @@ async function getProfileUser(name: string) {
 }
 
 interface PageProps {
-  params: {
+  params:Promise <{
     name: string;
-  };
+  }>;
 }
 
 
 
 export default async function Page({ params }: PageProps) {
-  const { name } = params;
+  const { name } = await params;
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
   let currentloginuser = null;

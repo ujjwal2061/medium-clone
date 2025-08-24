@@ -8,7 +8,7 @@ interface Params {
 }
 
 export default async function page({ params }: Params) {
-  // Await the params since it's now a Promise in Next.js 15
+  
   const { id } = await params;
   
   const parsedId = parseInt(id, 10);
