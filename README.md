@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My Truly Blog
 
-## Getting Started
+A modern, blog platform built with **Next.js**, **JWT authentication**, **Tailwind CSS**, and **ShadCN UI**, designed for sharing thoughts, learning, and connecting with fellow developers.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌟 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Authentication**  
+  - JWT-based login and signup
+  - Secure token storage with HttpOnly cookies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Blog Management**  
+  - Create, edit, and delete posts
+  - Markdown support for rich content formatting
+  - Syntax highlighting for code snippets
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Responsive UI**  
+  - Built with **Tailwind CSS** for modern, responsive design
+  - Uses **ShadCN UI** components for cards, buttons, avatars, and more
 
-## Learn More
+- **User Profiles**  
+  - View your profile and posts
+  - See other authors’ posts
 
-To learn more about Next.js, take a look at the following resources:
+- **Navigation & UX**  
+  - Easy-to-use sidebar and header navigation
+  - Smooth client-side routing with **Next.js 13+ App Router**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Learning Focus**  
+  - Designed to help others learn by sharing thoughts and code
+  - Encourages knowledge sharing in a developer-friendly environment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠 Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend & Framework:** Next.js 13+
+- **Authentication:** JWT (JSON Web Tokens)
+- **UI:** Tailwind CSS + ShadCN UI
+- **Database:** Prisma ORM with PostgreSQL
+- **Markdown Rendering:** React Markdown + Remark GFM
+- **Code Highlighting:** Prism.js
+- **Icons:** Lucide Re
