@@ -6,8 +6,7 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Bookmark, SquareArrowUpRight } from "lucide-react";
+import {  SquareArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
@@ -26,6 +25,10 @@ export interface Post {
 }
 
 export default function PostCard() {
+  
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+
    const components: Components = {
     code({ className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || "");
@@ -46,9 +49,33 @@ export default function PostCard() {
     },
   } as Components;
 
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-
+  // function fo the share link
+  const handleShareblog=async(post:Post ,event:React.MouseEvent)=>{
+    event.preventDefault();
+    event.stopPropagation();
+    const shareData={
+      title:post.title,
+      text:`Check out this post :${post.title}`,
+      url:`${window.location.origin}/post/${post.id}`
+    }
+    try {
+    if (navigator.share && navigator.canShare(shareData)) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(shareData.url);
+      toast.success("Link copied to clipboard!");
+    }
+  } catch (error) {
+ 
+    const textArea = document.createElement('textarea');
+    textArea.value = shareData.url;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+    toast.success("Link copied to clipboard!");
+  }
+};
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -78,13 +105,13 @@ if (loading) {
     <div className="space-y-6 ">
       {posts.map((post) => (
         <Link key={post.id} href={`/post/${post.id}`}>
-        <Card key={post.id} className="shadow-md m-2 ">
+        <Card key={post.id} className="border dark:border-neutral-900 border-zinc-200 rounded-md m-2 ">
           <CardHeader>
-           <div className="flex border-neutral-200  bg-neutral-200 w-fit  p-1.5 rounded-md flex-row items-center gap-2">
-                <Avatar>
+           <div className="flex  dark:border-neutral-900 border w-fit  p-1.5 rounded-md flex-row items-center gap-2">
+                 <Avatar>
                   <AvatarImage src="" />
-                  <AvatarFallback className="bg-zinc-100  shadow rounded-full px-2 py-1">
-                    {post?.author?.username?.charAt(0)}
+                  <AvatarFallback className="w-8 h-8 rounded-full dark:bg-neutral-800  px-2  py-1 shadow ">
+                    {post.author?.username?.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
                 <p className="text-sm font-medium">{post.author?.username ?? "Unknown Author"}</p>
@@ -92,7 +119,7 @@ if (loading) {
                   {/* {new Date(post.createdAt).toLocaleDateString()} */}
                 </p>
               </div>
-            <CardTitle className="text-xl mt-2">
+            <CardTitle className="text-xl">
               <p>
                 {post.title}
               </p>
@@ -105,17 +132,17 @@ if (loading) {
             components={components}
           >
             {post.content 
-              ? post.content.slice(0, 150) + (post.content.length > 150 ? "..." : "")
+              ? post.content.slice(0, 259)
               : "no-content"}
           </ReactMarkdown>
         </CardContent>
-          <CardFooter className="flex items-center space-x-4">
-            <Button variant="secondary" className="cursor-pointer">
-              <Bookmark size={20} className="text-black" />
-            </Button>
-            <Button variant="secondary" className="cursor-pointer">
-              <SquareArrowUpRight size={20} className="text-black" />
-            </Button>
+          <CardFooter className="flex items-center  gap-1 space-x-4">
+            
+          <button className="cursor-pointer hover:text-blue-500">
+            <SquareArrowUpRight onClick={(e)=>handleShareblog(post,e)}  
+            
+            size={18}/> 
+          </button>
           </CardFooter>
         </Card>
       </Link>

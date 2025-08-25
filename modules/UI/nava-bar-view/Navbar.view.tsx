@@ -22,7 +22,7 @@ export const NavbarView = ({username}:NavbarViewProps) => {
         <div className="flex  gap-2 items-center">
         <Button asChild
           variant="outline"
-          className="hidden  md:flex font-semibold px-4 py-1.5 rounded-full cursor-pointer w-10 h-10  items-center justify-center">
+          className="flex  font-semibold px-4 py-1.5 rounded-full cursor-pointer w-10 h-10  items-center justify-center">
           <Link href={`/profile/${username}`}>
           {username.charAt(0).toUpperCase()}
           </Link> 
@@ -43,7 +43,7 @@ export const NavbarView = ({username}:NavbarViewProps) => {
   };
 
   return (
-    <div className="w-full  border-b border-neutral-400 z-20 bg-neutral-100 flex justify-center fixed ">
+    <div className="w-full  border-b dark:bg-neutral-950 dark:border-neutral-900 border-neutral-400 z-20 bg-neutral-100 flex justify-center fixed ">
       <div className="  max-w-7xl  mx-auto  w-full ">
       <div className="flex justify-between items-center px-4 py-3">
         <div className="flex gap-2 items-center">
@@ -63,13 +63,13 @@ export const NavbarView = ({username}:NavbarViewProps) => {
 
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors cursor-pointer">
+          className="md:hidden p-2 rounded-md  transition-colors cursor-pointer">
           {isExpanded ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {isExpanded && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t shadow-lg z-50">
+        <div className="md:hidden absolute top-full left-0 right-0 dark:bg-neutral-950  bg-white border-t shadow-lg z-50">
           <div className="flex flex-col gap-3 p-4">
             {renderUserButton()}
             <Button className="cursor-pointer flex items-center justify-center gap-1 w-full">

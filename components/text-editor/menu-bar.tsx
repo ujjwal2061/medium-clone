@@ -117,7 +117,7 @@ const addImagetoEditor=async(e:React.ChangeEvent<HTMLInputElement>)=>{
 
   ];
   return (
-    <div className="border  flex  flex-wrap items-center rounded-md p-1 bg-slate-50 space-x-2 z-20 mb-1  ">
+    <div className="border  flex  flex-wrap items-center rounded-md p-1 dark:bg-neutral-950 bg-slate-50 space-x-2 z-20 mb-1  ">
       {Options.map((option, index) => (
         <Toggle
           key={index}
@@ -128,16 +128,16 @@ const addImagetoEditor=async(e:React.ChangeEvent<HTMLInputElement>)=>{
         </Toggle>
       ))}
           <div className="flex  items-center gap-2 ">
-          <button className={editor.isActive('codeBlock')?'is-active cursor-pointer p-2 rounded hover:bg-slate-100 hover:text-gray-400':""} 
+          <button className={editor.isActive('codeBlock')?'is-active cursor-pointer p-2 rounded':""} 
           onClick={()=>editor.chain().focus().setCodeBlock().run()}>
             <Code size={16} />
           </button>
-           <button className={editor.isActive('codeBlock')?'is-active cursor-pointer p-2 rounded hover:bg-slate-100 hover:text-gray-400':""} 
+           <button className={editor.isActive('codeBlock')?'is-active cursor-pointer p-2 rounded ':""} 
             onClick={()=>editor.chain().focus().toggleCodeBlock().run()} disabled={editor.isActive('codeBlock')}>
             <Code size={16} />
           </button>
         </div>
-           <Label className="flex gap-1 cursor-pointer"><ImagePlus   size={30} className="p-2 rounded hover:bg-slate-100 hover:text-gray-400"/>
+           <Label className="flex gap-1 cursor-pointer"><ImagePlus   size={30} className="p-2 rounded "/>
             <Input type="file" accept="image/*" onChange={addImagetoEditor} className="hidden"  />
            </Label>
     </div>

@@ -11,7 +11,7 @@ export default function PostCardLoading() {
       {Array.from({ length: skeletonCount }).map((_, i) => (
         <Card key={i} className="shadow-md m-2  mx-auto">
           <CardHeader>
-            <div className="flex border-neutral-200 bg-neutral-200 w-fit p-1.5 rounded-md flex-row items-center gap-2">
+            <div className="flex dark:bg-neutral-950 dark:boder dark:border-neutral-800 border-neutral-200 bg-neutral-200 w-fit p-1.5 rounded-md flex-row items-center gap-2">
               <Skeleton className="h-8 w-8 rounded-full bg-zinc-300" />
               <Skeleton className="h-4 w-20 rounded-md bg-zinc-300" />
             </div>

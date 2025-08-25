@@ -11,6 +11,8 @@ import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ArrowLeft, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Theme } from "@/components/ui/theme";
+import Themenavabar from "../nava-bar-view/theme-navbar";
 
 
 
@@ -61,29 +63,13 @@ export const Profile: React.FC<ProfileProps> = ({ userInfo, currentuser }) => {
       );
     },
   } as Components;
-//  const handleLogout=()=>{
-//   cookieStore.delete("token")
-//   if(!token){
-//     router.push("/");
-//   }
-//  }
-  return (
-    <div className="min-h-screen flex flex-col bg-slate-100">
-      <nav className=" fixed z-20    w-full bg-white  border-b">
-        <div className="max-w-7xl  justify-between mx-auto px-4 py-3 flex items-center">
-          <Link
-            href="/"
-            className="flex items-center text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Home
-          </Link>
-         {/* <Button  variant="destructive" className="cursor-pointer"><LogOut  size={18}/>LogOut</Button> */}
-        </div>
-      </nav>
 
-      <div className=" mt-8 max-w-7xl w-full flex flex-col gap-4 md:flex-row mx-auto px-4 py-6">
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-100 dark:bg-black dark:text-white">
+      <Themenavabar />
+      <div className=" mt-12 max-w-7xl w-full flex flex-col gap-4 md:flex-row mx-auto px-4 py-6">
         <div className="w-full md:w-1/3 md:border-none">
-          <Card>
+          <Card className=" bg-card dark:bg-neutral-950 shadow border border-neutral-100 dark:border-neutral-900 rounded-md">
             <CardHeader>
               <div className="flex  w-fit flex-row items-center gap-4">
                 <Avatar>
@@ -100,23 +86,25 @@ export const Profile: React.FC<ProfileProps> = ({ userInfo, currentuser }) => {
         </div>
 
         {/* Blog Posts Section */}
-        <div className="w-full md:w-2/3 px-2 bg-card text-foreground rounded-xl py-2">
-          <h1 className="p-1 font-semibold text-gray-700 text-2xl">Your Posts</h1>
+        <div className="w-full dark:bg-neutral-950 dark:border dark:border-neutral-900 dark:text-white md:w-2/3 px-2 bg-card text-foreground rounded-xl py-2">
+          <h1 className="p-1 font-semibold text-2xl">Your Posts</h1>
           <div className="rounded-t-md flex flex-col scrollbar-hide overflow-auto px-2">
             {userInfo?.posts.map((blog) => (
               <Link key={blog.id} href={`/post/${blog.id}`}>
-                <Card className="mb-4">
+                <Card className="bg-card dark:bg-neutral-950 shadow border  border-neutral-100 dark:border-neutral-900  m-1 rounded-md">
                   <CardHeader>
-                    <div className="flex items-center gap-1">
-                      <Avatar>
-                      <AvatarImage src="" />
-                      <AvatarFallback>{userInfo?.username?.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                      <p className="text-sm font-medium">{userInfo.username}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {/* {new Date(post.createdAt).toLocaleDateString()} */}
-                      </p>
-                    </div>
+                   <div className="flex w-fit  dark:bg-neutral-950 shadow-md border dark:border-neutral-900 p-1 rounded-md flex-row items-center gap-2">
+                <Avatar>
+                  <AvatarImage src="" />
+                  <AvatarFallback >
+                    {userInfo?.username?.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+                <p className="text-sm font-medium">{userInfo?.username ?? "Unknown Author"}</p>
+                <p className="text-xs text-muted-foreground">
+                  {/* {new Date(post.createdAt).toLocaleDateString()} */}
+                </p>
+              </div>
                     <CardTitle className="text-xl">
                       <p>{blog.title}</p>
                     </CardTitle>
@@ -128,7 +116,7 @@ export const Profile: React.FC<ProfileProps> = ({ userInfo, currentuser }) => {
                     components={components}
                   >
                     {blog.content 
-                      ? blog.content.slice(0, 150) + (blog.content.length > 150 ? "..." : "")
+                      ? blog.content.slice(0, 259)
                       : "no-content"}
                   </ReactMarkdown>
                 </CardContent>

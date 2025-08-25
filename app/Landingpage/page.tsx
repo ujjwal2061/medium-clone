@@ -6,6 +6,7 @@ import  jwt from "jsonwebtoken";
 
 import {prisma} from "@/lib/prisma"
 import PostCard from "@/components/ui/post-card"
+import { Theme } from "@/components/ui/theme";
 
 
 
@@ -30,7 +31,7 @@ if(token){
   user=await getuserToken(token);
 }
   return (
-    <div className="min-h-screen  bg-slate-100">
+    <div className=" relative min-h-screen bg- dark:bg-neutral-950">
       <NavbarView  username={user?.username}/>
       <div className="flex justify-center">
         <div className="max-w-5xl w-full justify-center mt-16  p-2 flex flex-col gap-1">

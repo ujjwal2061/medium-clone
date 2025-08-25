@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono ,Inter} from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 
  
 
@@ -21,8 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`} >
+        <ThemeProvider attribute="class"
+        defaultTheme="system"
+        enableColorScheme
+        disableTransitionOnChange>
         {children}
         <Toaster richColors position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   );

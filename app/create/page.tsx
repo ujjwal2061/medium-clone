@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import { Textarea } from "@/components/ui/textarea";
+import Themenavabar from "@/modules/UI/nava-bar-view/theme-navbar";
 
 export default function Page() {
   const router=useRouter();
@@ -46,22 +47,12 @@ export default function Page() {
 }
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-50">
-      <div className="w-full bg-white border border-slate-300">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center">
-          <Link
-            href="/"
-            className="flex items-center text-gray-700 hover:text-gray-900 transition-colors duration-200">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Home
-          </Link>
-        </div>
-      </div>
-
+    <div className="min-h-screen flex flex-col items-center dark:bg-neutral-950">
+      <Themenavabar />
       {/* Editor */}
-      <div className="max-w-5xl gap-2  w-full mx-auto py-8 px-4 ">
+      <div className="max-w-5xl gap-2 mt-12 w-full mx-auto py-8 px-4 ">
         <form onSubmit={handlePost} className=" ">
-        <div className=" flex  flex-col gap-1 px-2 py-2 border-2 border-slate-200 rounded-md">
+        <div className=" flex  flex-col gap-1 px-2 py-2 border dark:border-neutral-900 border-slate-200 rounded-md">
         <div className="flex justify-between px-2 w-full">
         <Label htmlFor="title" className="font-semibold text-2xl"> Post Title</Label>
         <Button 
@@ -81,7 +72,6 @@ export default function Page() {
         onChange={(e)=>setTilte(e.target.value)}
          placeholder="Post title..."
         required/>
-
           <Tiptap content={content} onChange={onChange} />
           </div>
         </form>

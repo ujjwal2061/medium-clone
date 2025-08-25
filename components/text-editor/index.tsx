@@ -55,7 +55,8 @@ const Tiptap = ({content,onChange}:RichTextEdiorProps) => {
   return (
     <div>
    <Menubar editor={editor}  />
-   <EditorContent editor={editor} />
+
+   <EditorContent  className=" dark:text-black"editor={editor} />
     </div>
   )
 }
