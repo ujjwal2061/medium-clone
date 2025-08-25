@@ -95,7 +95,7 @@ export const NavbarView = ({ username }: NavbarViewProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Star on
+                 on
                 </a>
                 <Github className="w-4 h-4 ml-1" />
               </Button>
