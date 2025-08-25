@@ -6,7 +6,7 @@ import  jwt from "jsonwebtoken";
 
 import {prisma} from "@/lib/prisma"
 import PostCard from "@/components/ui/post-card"
-import { Theme } from "@/components/ui/theme";
+
 
 
 
